@@ -4,5 +4,9 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "cSpell.words": ["Rallly", "Vella"]
+  "cSpell.words": [
+    "Rallly",
+    "Vella"
+  ],
+  "WillLuke.nextjs.hasPrompted": true
 }
