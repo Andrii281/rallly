@@ -28,7 +28,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@rallly_db/rallly
+      - DATABASE_URL=https://rallly-billing.vercel.app/
     env_file:
       - .env
 
