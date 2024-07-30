@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import { createToken } from "../../../session";
 import { publicProcedure, router } from "../../trpc";
-// import { DisableNotificationsPayload } from "../../types";
+import { DisableNotificationsPayload } from "../../types";
 
 export const participants = router({
   list: publicProcedure
@@ -133,44 +133,44 @@ export const participants = router({
         );
       }
 
-      // const watchers = await prisma.watcher.findMany({
-      //   where: {
-      //     pollId,
-      //   },
-      //   select: {
-      //     id: true,
-      //     userId: true,
-      //     user: {
-      //       select: {
-      //         email: true,
-      //         name: true,
-      //       },
-      //     },
-      //   },
-      // });
+      const watchers = await prisma.watcher.findMany({
+        where: {
+          pollId,
+        },
+        select: {
+          id: true,
+          userId: true,
+          user: {
+            select: {
+              email: true,
+              name: true,
+            },
+          },
+        },
+      });
 
-      // for (const watcher of watchers) {
-      //   const email = watcher.user.email;
-      //   const token = await createToken<DisableNotificationsPayload>(
-      //     { watcherId: watcher.id, pollId },
-      //     { ttl: 0 },
-      //   );
-      //   emailsToSend.push(
-      //     ctx.emailClient.sendTemplate("NewParticipantEmail", {
-      //       to: email,
-      //       subject: `${participant.name} has responded to ${poll.title}`,
-      //       props: {
-      //         name: watcher.user.name,
-      //         participantName: participant.name,
-      //         pollUrl: ctx.absoluteUrl(`/poll/${poll.id}`),
-      //         disableNotificationsUrl: ctx.absoluteUrl(
-      //           `/auth/disable-notifications?token=${token}`,
-      //         ),
-      //         title: poll.title,
-      //       },
-      //     }),
-      //   );
-      // }
+      for (const watcher of watchers) {
+        const email = watcher.user.email;
+        const token = await createToken<DisableNotificationsPayload>(
+          { watcherId: watcher.id, pollId },
+          { ttl: 0 },
+        );
+        emailsToSend.push(
+          ctx.emailClient.sendTemplate("NewParticipantEmail", {
+            to: email,
+            subject: `${participant.name} has responded to ${poll.title}`,
+            props: {
+              name: watcher.user.name,
+              participantName: participant.name,
+              pollUrl: ctx.absoluteUrl(`/poll/${poll.id}`),
+              disableNotificationsUrl: ctx.absoluteUrl(
+                `/auth/disable-notifications?token=${token}`,
+              ),
+              title: poll.title,
+            },
+          }),
+        );
+      }
 
       waitUntil(Promise.all(emailsToSend));
 
