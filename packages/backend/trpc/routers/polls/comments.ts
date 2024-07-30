@@ -1,9 +1,9 @@
 import { prisma } from "@rallly/database";
 import { z } from "zod";
 
-import { createToken } from "../../../session";
+// import { createToken } from "../../../session";
 import { publicProcedure, router } from "../../trpc";
-import { DisableNotificationsPayload } from "../../types";
+// import { DisableNotificationsPayload } from "../../types";
 
 export const comments = router({
   list: publicProcedure
@@ -53,48 +53,48 @@ export const comments = router({
         },
       });
 
-      const watchers = await prisma.watcher.findMany({
-        where: {
-          pollId,
-        },
-        select: {
-          id: true,
-          userId: true,
-          user: {
-            select: {
-              email: true,
-              name: true,
-            },
-          },
-        },
-      });
+      // const watchers = await prisma.watcher.findMany({
+      //   where: {
+      //     pollId,
+      //   },
+      //   select: {
+      //     id: true,
+      //     userId: true,
+      //     user: {
+      //       select: {
+      //         email: true,
+      //         name: true,
+      //       },
+      //     },
+      //   },
+      // });
 
-      const poll = newComment.poll;
+      // const poll = newComment.poll;
 
-      const emailsToSend: Promise<void>[] = [];
+      // const emailsToSend: Promise<void>[] = [];
 
-      for (const watcher of watchers) {
-        const email = watcher.user.email;
-        const token = await createToken<DisableNotificationsPayload>(
-          { watcherId: watcher.id, pollId },
-          { ttl: 0 },
-        );
-        emailsToSend.push(
-          ctx.emailClient.sendTemplate("NewCommentEmail", {
-            to: email,
-            subject: `${authorName} has commented on ${poll.title}`,
-            props: {
-              name: watcher.user.name,
-              authorName,
-              pollUrl: ctx.absoluteUrl(`/poll/${poll.id}`),
-              disableNotificationsUrl: ctx.absoluteUrl(
-                `/auth/disable-notifications?token=${token}`,
-              ),
-              title: poll.title,
-            },
-          }),
-        );
-      }
+      // for (const watcher of watchers) {
+      //   const email = watcher.user.email;
+      //   const token = await createToken<DisableNotificationsPayload>(
+      //     { watcherId: watcher.id, pollId },
+      //     { ttl: 0 },
+      //   );
+      //   emailsToSend.push(
+      //     ctx.emailClient.sendTemplate("NewCommentEmail", {
+      //       to: email,
+      //       subject: `${authorName} has commented on ${poll.title}`,
+      //       props: {
+      //         name: watcher.user.name,
+      //         authorName,
+      //         pollUrl: ctx.absoluteUrl(`/poll/${poll.id}`),
+      //         disableNotificationsUrl: ctx.absoluteUrl(
+      //           `/auth/disable-notifications?token=${token}`,
+      //         ),
+      //         title: poll.title,
+      //       },
+      //     }),
+      //   );
+      // }
 
       return newComment;
     }),
