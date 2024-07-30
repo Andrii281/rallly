@@ -11,8 +11,9 @@ const Page = () => {
 
 export default Page;
 
-export const getServerSideProps: GetServerSidePropsNext = async (ctx) => {
-  // const token = ctx.query.token?.toString() as string;
+export const getServerSideProps: GetServerSidePropsNext = async () => {
+// export const getServerSideProps: GetServerSidePropsNext = async (ctx) => {
+// const token = ctx.query.token?.toString() as string;
   // const session = await getServerSession(ctx.req, ctx.res);
 
   // if (!session || session.user.email === null) {
