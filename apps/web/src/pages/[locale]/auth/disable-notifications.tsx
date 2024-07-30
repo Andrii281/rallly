@@ -11,7 +11,7 @@ const Page = () => {
 
 export default Page;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const composegetServerSideProps: GetServerSideProps = async (ctx) => {
   const token = ctx.query.token as string;
   const session = await getServerSession(ctx.req, ctx.res);
 

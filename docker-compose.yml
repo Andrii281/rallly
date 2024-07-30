@@ -28,7 +28,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DATABASE_URL=postgresql://postgres:BGoOoCkAthxGBwwGgogmrCPYvlBEDsTg@postgres.railway.internal:5432/railway
+      - DATABASE_URL=postgresql://postgres:BGoOoCkAthxGBwwGgogmrCPYvlBEDsTg@roundhouse.proxy.rlwy.net:51252/railway
     env_file:
       - .env
 
