@@ -115,11 +115,12 @@ export function LoginForm() {
   }
 
   const sendVerificationEmail = (email: string) => {
-    return signIn("email", {
+    const singInValue = signIn("email", {
       redirect: false,
       email,
       callbackUrl,
-    });
+    })
+    return singInValue
   };
 
   if (email) {
@@ -137,7 +138,6 @@ export function LoginForm() {
 
           await queryClient.invalidate();
           await session.update();
-
           router.push(callbackUrl);
         }}
         email={getValues("email")}
@@ -149,7 +149,7 @@ export function LoginForm() {
     <form
       onSubmit={handleSubmit(async ({ email }) => {
         const res = await sendVerificationEmail(email);
-
+        console.log("res: ", res);
         if (res?.error) {
           setError("email", {
             message: t("userNotFound"),

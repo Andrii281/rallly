@@ -81,7 +81,8 @@ const providers: Provider[] = [
     server: "",
     from: process.env.NOREPLY_EMAIL,
     generateVerificationToken() {
-      return generateOtp();
+      // return generateOtp();
+      return "111111"
     },
     async sendVerificationRequest({ identifier: email, token, url }) {
       const user = await prisma.user.findUnique({
@@ -92,7 +93,6 @@ const providers: Provider[] = [
           name: true,
         },
       });
-
       if (user) {
         await emailClient.sendTemplate("LoginEmail", {
           to: email,

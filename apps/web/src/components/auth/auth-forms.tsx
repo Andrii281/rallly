@@ -12,10 +12,11 @@ export const verifyCode = async (options: { email: string; token: string }) => {
   }/api/auth/callback/email?email=${encodeURIComponent(options.email)}&token=${
     options.token
   }`;
-
+  
   const res = await fetch(url);
 
   return !res.url.includes("auth/error");
+  
 };
 
 export const VerifyCode: React.FunctionComponent<{
