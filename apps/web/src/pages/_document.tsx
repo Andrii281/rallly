@@ -5,6 +5,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
+        
         <script
           dangerouslySetInnerHTML={{
             __html: `window.USER_DATA = {'id': '374494','email': 'andrii.cherkas@unidatalab.com', 'email_verified': true, 'first_name': 'Andrii', 'last_name': 'Cherkas','full_name': 'Andrii Cherkas',};\n// For demonstration, let's log the USER_DATA to the console\nconsole.log(window.USER_DATA);`,
