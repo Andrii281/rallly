@@ -100,5 +100,10 @@
   },
   "resolutions": {
     "react-countup/countup.js": "2.5.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
